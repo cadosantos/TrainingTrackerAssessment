@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TrainingTrackerAssessmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MapPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="SoldierId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SensorManufacturerId" Type="int" Nullable="false" />
+          <Property Name="SensorTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SensorManufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SensorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Soldier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RankId" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="TrainingInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="SensorId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__MapPositi__Soldi__47DBAE45">
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="1" />
+          <End Role="MapPosition" Type="Self.MapPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Soldier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapPosition">
+              <PropertyRef Name="SoldierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sensor__SensorMa__3F466844">
+          <End Role="SensorManufacturer" Type="Self.SensorManufacturer" Multiplicity="1" />
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SensorManufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sensor">
+              <PropertyRef Name="SensorManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sensor__SensorTy__403A8C7D">
+          <End Role="SensorType" Type="Self.SensorType" Multiplicity="1" />
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SensorType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sensor">
+              <PropertyRef Name="SensorTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Soldier__Country__440B1D61">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Soldier__RankId__4316F928">
+          <End Role="Rank" Type="Self.Rank" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="RankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Soldier__SensorI__44FF419A">
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sensor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="SensorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingTrackerAssessmentModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MapPosition" EntityType="Self.MapPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rank" EntityType="Self.Rank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sensor" EntityType="Self.Sensor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SensorManufacturer" EntityType="Self.SensorManufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SensorType" EntityType="Self.SensorType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Soldier" EntityType="Self.Soldier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MapPositi__Soldi__47DBAE45" Association="Self.FK__MapPositi__Soldi__47DBAE45">
+            <End Role="Soldier" EntitySet="Soldier" />
+            <End Role="MapPosition" EntitySet="MapPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sensor__SensorMa__3F466844" Association="Self.FK__Sensor__SensorMa__3F466844">
+            <End Role="SensorManufacturer" EntitySet="SensorManufacturer" />
+            <End Role="Sensor" EntitySet="Sensor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sensor__SensorTy__403A8C7D" Association="Self.FK__Sensor__SensorTy__403A8C7D">
+            <End Role="SensorType" EntitySet="SensorType" />
+            <End Role="Sensor" EntitySet="Sensor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Soldier__Country__440B1D61" Association="Self.FK__Soldier__Country__440B1D61">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Soldier" EntitySet="Soldier" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Soldier__RankId__4316F928" Association="Self.FK__Soldier__RankId__4316F928">
+            <End Role="Rank" EntitySet="Rank" />
+            <End Role="Soldier" EntitySet="Soldier" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Soldier__SensorI__44FF419A" Association="Self.FK__Soldier__SensorI__44FF419A">
+            <End Role="Sensor" EntitySet="Sensor" />
+            <End Role="Soldier" EntitySet="Soldier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingTrackerAssessmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Soldiers" Relationship="Self.FK__Soldier__Country__440B1D61" FromRole="Country" ToRole="Soldier" />
+        </EntityType>
+        <EntityType Name="MapPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="SoldierId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Soldier" Relationship="Self.FK__MapPositi__Soldi__47DBAE45" FromRole="MapPosition" ToRole="Soldier" />
+        </EntityType>
+        <EntityType Name="Rank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Soldiers" Relationship="Self.FK__Soldier__RankId__4316F928" FromRole="Rank" ToRole="Soldier" />
+        </EntityType>
+        <EntityType Name="Sensor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SensorManufacturerId" Type="Int32" Nullable="false" />
+          <Property Name="SensorTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SensorManufacturer" Relationship="Self.FK__Sensor__SensorMa__3F466844" FromRole="Sensor" ToRole="SensorManufacturer" />
+          <NavigationProperty Name="SensorType" Relationship="Self.FK__Sensor__SensorTy__403A8C7D" FromRole="Sensor" ToRole="SensorType" />
+          <NavigationProperty Name="Soldiers" Relationship="Self.FK__Soldier__SensorI__44FF419A" FromRole="Sensor" ToRole="Soldier" />
+        </EntityType>
+        <EntityType Name="SensorManufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sensors" Relationship="Self.FK__Sensor__SensorMa__3F466844" FromRole="SensorManufacturer" ToRole="Sensor" />
+        </EntityType>
+        <EntityType Name="SensorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sensors" Relationship="Self.FK__Sensor__SensorTy__403A8C7D" FromRole="SensorType" ToRole="Sensor" />
+        </EntityType>
+        <EntityType Name="Soldier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RankId" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="TrainingInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SensorId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Soldier__Country__440B1D61" FromRole="Soldier" ToRole="Country" />
+          <NavigationProperty Name="MapPositions" Relationship="Self.FK__MapPositi__Soldi__47DBAE45" FromRole="Soldier" ToRole="MapPosition" />
+          <NavigationProperty Name="Rank" Relationship="Self.FK__Soldier__RankId__4316F928" FromRole="Soldier" ToRole="Rank" />
+          <NavigationProperty Name="Sensor" Relationship="Self.FK__Soldier__SensorI__44FF419A" FromRole="Soldier" ToRole="Sensor" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Soldier__Country__440B1D61">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MapPositi__Soldi__47DBAE45">
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="1" />
+          <End Role="MapPosition" Type="Self.MapPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Soldier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MapPosition">
+              <PropertyRef Name="SoldierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Soldier__RankId__4316F928">
+          <End Role="Rank" Type="Self.Rank" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="RankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sensor__SensorMa__3F466844">
+          <End Role="SensorManufacturer" Type="Self.SensorManufacturer" Multiplicity="1" />
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SensorManufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sensor">
+              <PropertyRef Name="SensorManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sensor__SensorTy__403A8C7D">
+          <End Role="SensorType" Type="Self.SensorType" Multiplicity="1" />
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SensorType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sensor">
+              <PropertyRef Name="SensorTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Soldier__SensorI__44FF419A">
+          <End Role="Sensor" Type="Self.Sensor" Multiplicity="1" />
+          <End Role="Soldier" Type="Self.Soldier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sensor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Soldier">
+              <PropertyRef Name="SensorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingTrackerAssessmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="MapPositions" EntityType="Self.MapPosition" />
+          <EntitySet Name="Ranks" EntityType="Self.Rank" />
+          <EntitySet Name="Sensors" EntityType="Self.Sensor" />
+          <EntitySet Name="SensorManufacturers" EntityType="Self.SensorManufacturer" />
+          <EntitySet Name="SensorTypes" EntityType="Self.SensorType" />
+          <EntitySet Name="Soldiers" EntityType="Self.Soldier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Soldier__Country__440B1D61" Association="Self.FK__Soldier__Country__440B1D61">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Soldier" EntitySet="Soldiers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MapPositi__Soldi__47DBAE45" Association="Self.FK__MapPositi__Soldi__47DBAE45">
+            <End Role="Soldier" EntitySet="Soldiers" />
+            <End Role="MapPosition" EntitySet="MapPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Soldier__RankId__4316F928" Association="Self.FK__Soldier__RankId__4316F928">
+            <End Role="Rank" EntitySet="Ranks" />
+            <End Role="Soldier" EntitySet="Soldiers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sensor__SensorMa__3F466844" Association="Self.FK__Sensor__SensorMa__3F466844">
+            <End Role="SensorManufacturer" EntitySet="SensorManufacturers" />
+            <End Role="Sensor" EntitySet="Sensors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sensor__SensorTy__403A8C7D" Association="Self.FK__Sensor__SensorTy__403A8C7D">
+            <End Role="SensorType" EntitySet="SensorTypes" />
+            <End Role="Sensor" EntitySet="Sensors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Soldier__SensorI__44FF419A" Association="Self.FK__Soldier__SensorI__44FF419A">
+            <End Role="Sensor" EntitySet="Sensors" />
+            <End Role="Soldier" EntitySet="Soldiers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingTrackerAssessmentModelStoreContainer" CdmEntityContainer="TrainingTrackerAssessmentEntities">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MapPositions">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.MapPosition">
+              <MappingFragment StoreEntitySet="MapPosition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="SoldierId" ColumnName="SoldierId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ranks">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.Rank">
+              <MappingFragment StoreEntitySet="Rank">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sensors">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.Sensor">
+              <MappingFragment StoreEntitySet="Sensor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SensorManufacturerId" ColumnName="SensorManufacturerId" />
+                <ScalarProperty Name="SensorTypeId" ColumnName="SensorTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SensorManufacturers">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.SensorManufacturer">
+              <MappingFragment StoreEntitySet="SensorManufacturer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SensorTypes">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.SensorType">
+              <MappingFragment StoreEntitySet="SensorType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Soldiers">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.Soldier">
+              <MappingFragment StoreEntitySet="Soldier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RankId" ColumnName="RankId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="TrainingInfo" ColumnName="TrainingInfo" />
+                <ScalarProperty Name="SensorId" ColumnName="SensorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TrainingTrackerAssessmentModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

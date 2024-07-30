@@ -1,0 +1,9 @@
+*.obj
+*.dll
+*.exe
+*.pdb
+*.user
+[Bb]in
+[Dd]ebug*/
+obj/
+.vs/

@@ -1,0 +1,12 @@
+[
+    { "Id": "bbbbbbb1-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000001, "Longitude": -117.000001, "SoldierId": "aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb2-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000002, "Longitude": -117.000002, "SoldierId": "aaaaaaa1-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb3-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000003, "Longitude": -117.000003, "SoldierId": "aaaaaaa2-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb4-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000004, "Longitude": -117.000004, "SoldierId": "aaaaaaa2-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb5-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000005, "Longitude": -117.000005, "SoldierId": "aaaaaaa3-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb6-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000006, "Longitude": -117.000006, "SoldierId": "aaaaaaa3-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb7-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000007, "Longitude": -117.000007, "SoldierId": "aaaaaaa4-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb8-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000008, "Longitude": -117.000008, "SoldierId": "aaaaaaa4-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbb9-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000009, "Longitude": -117.000009, "SoldierId": "aaaaaaa5-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" },
+    { "Id": "bbbbbbba-bbbb-bbbb-bbbb-bbbbbbbbbbbb", "Latitude": 34.000010, "Longitude": -117.000010, "SoldierId": "aaaaaaa5-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "CreatedDate": "2024-07-30T20:59:00Z" }
+  ]
